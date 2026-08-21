@@ -16,6 +16,7 @@ export function formatDate(dateString: string | null, options?: Intl.DateTimeFor
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'Asia/Jakarta',
     ...options,
   });
 }

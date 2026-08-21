@@ -138,6 +138,63 @@ CREATE POLICY "Authenticated users can manage settings"
   USING (auth.role() = 'authenticated')
   WITH CHECK (auth.role() = 'authenticated');
 
+-- 7. Gift Recommendations
+CREATE TABLE IF NOT EXISTS gift_recommendations (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  description text,
+  price numeric NOT NULL,
+  total_needed integer NOT NULL DEFAULT 1,
+  total_bought integer NOT NULL DEFAULT 0,
+  image_url text,
+  purchase_link text,
+  created_at timestamp DEFAULT now(),
+  updated_at timestamp DEFAULT now()
+);
+
+ALTER TABLE gift_recommendations ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public can read gift recommendations"
+  ON gift_recommendations FOR SELECT
+  USING (true);
+
+CREATE POLICY "Public can update gift recommendations"
+  ON gift_recommendations FOR UPDATE
+  USING (true)
+  WITH CHECK (true);
+
+CREATE POLICY "Authenticated users can manage gift recommendations"
+  ON gift_recommendations FOR ALL
+  USING (auth.role() = 'authenticated')
+  WITH CHECK (auth.role() = 'authenticated');
+
+-- 8. Gift Purchases
+CREATE TABLE IF NOT EXISTS gift_purchases (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  gift_id uuid REFERENCES gift_recommendations(id) ON DELETE CASCADE,
+  buyer_name text NOT NULL,
+  whatsapp_number text NOT NULL,
+  email text,
+  quantity integer NOT NULL DEFAULT 1,
+  created_at timestamp DEFAULT now()
+);
+
+ALTER TABLE gift_purchases ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public can read gift purchases"
+  ON gift_purchases FOR SELECT
+  USING (true);
+
+-- Public can INSERT purchases
+CREATE POLICY "Public can insert gift purchases"
+  ON gift_purchases FOR INSERT
+  WITH CHECK (true);
+
+CREATE POLICY "Authenticated users can manage gift purchases"
+  ON gift_purchases FOR ALL
+  USING (auth.role() = 'authenticated')
+  WITH CHECK (auth.role() = 'authenticated');
+
 -- ============================================================
 -- Seed data (optional) — Insert default couple and settings
 -- ============================================================
@@ -156,3 +213,8 @@ VALUES
 
 INSERT INTO settings (music_url, theme_color)
 VALUES ('', '#1a365d');
+
+INSERT INTO gift_recommendations (name, description, price, total_needed, total_bought, image_url, purchase_link)
+VALUES
+  ('Mirror', 'Long Mirror', 500000, 3, 1, 'https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'https://example.com/buy-mirror'),
+  ('Bedcover', 'King Size White Bedcover', 2500000, 4, 0, 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'https://example.com/buy-bedcover');

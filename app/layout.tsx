@@ -1,5 +1,9 @@
 import type { Metadata } from 'next';
+import { Inter, Lora } from 'next/font/google';
 import './globals.css';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const lora = Lora({ subsets: ['latin'], variable: '--font-lora' });
 
 export const metadata: Metadata = {
   title: 'Fia & Sepri — Wedding Invitation',
@@ -13,8 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
-      <body>{children}</body>
+    <html lang="id" className={`${inter.variable} ${lora.variable} scroll-smooth`}>
+      <body className="font-sans antialiased bg-ghibli-cream text-ghibli-dark">
+        {children}
+      </body>
     </html>
   );
 }

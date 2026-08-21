@@ -2,6 +2,10 @@
 
 import { useState, type FormEvent } from 'react';
 import { createClient } from '@/lib/supabase';
+import { motion } from 'framer-motion';
+import { Dancing_Script } from 'next/font/google';
+
+const dancingScript = Dancing_Script({ subsets: ['latin'], weight: ['400', '700'] });
 
 export function RsvpForm() {
   const [guestName, setGuestName] = useState('');
@@ -22,7 +26,7 @@ export function RsvpForm() {
       const { error } = await supabase.from('rsvps').insert({
         guest_name: guestName.trim(),
         attendance_status: attendanceStatus,
-        total_guest: totalGuest,
+        total_guest: attendanceStatus === 'will_attend' ? totalGuest : 0,
       });
 
       if (error) throw error;
@@ -38,63 +42,125 @@ export function RsvpForm() {
     }
   };
 
+  // Using a custom dark blue color for the minimalist design
+  const blueColor = '#3a5a78';
+
   return (
-    <section id="rsvp" className="section section-alt">
-      <div className="container">
-        <h2 className="section-title">RSVP</h2>
-        <p className="section-subtitle">Konfirmasi kehadiran Anda</p>
+    <section id="rsvp" className="relative w-full max-w-md mx-auto px-6 py-10 text-[#4a463d]">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="text-center mb-12"
+      >
+        <h2 className={`${dancingScript.className} text-5xl mb-4`} style={{ color: blueColor }}>
+          Konfirmasi Kehadiran
+        </h2>
+      </motion.div>
 
-        <form onSubmit={handleSubmit} className="form rsvp-form">
-          <div className="form-group">
-            <label htmlFor="rsvp-name" className="form-label">Nama Lengkap</label>
-            <input
-              id="rsvp-name"
-              type="text"
-              className="form-input"
-              placeholder="Masukkan nama Anda"
-              value={guestName}
-              onChange={(e) => setGuestName(e.target.value)}
-              required
+      <motion.form 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        onSubmit={handleSubmit} 
+        className="space-y-8"
+      >
+        {/* Name Input */}
+        <div>
+          <input
+            type="text"
+            className="w-full bg-transparent border-b border-[#3a5a78]/40 focus:border-[#3a5a78] px-2 py-3 text-sm focus:outline-none transition-colors placeholder:text-[#3a5a78]/50"
+            placeholder="Nama Lengkap"
+            value={guestName}
+            onChange={(e) => setGuestName(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* Custom Checkboxes for Attendance */}
+        <div className="space-y-4 pt-2">
+          <label className="flex items-center gap-4 cursor-pointer group">
+            <div className={`w-5 h-5 flex items-center justify-center border transition-colors ${attendanceStatus === 'will_attend' ? 'border-[#3a5a78] bg-[#3a5a78]' : 'border-[#3a5a78]/40'}`}>
+               {attendanceStatus === 'will_attend' && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="20 6 9 17 4 12" /></svg>}
+            </div>
+            <span className="text-sm text-[#4a463d]">Ya, Saya Hadir</span>
+            <input 
+              type="radio" 
+              name="attendance" 
+              value="will_attend" 
+              checked={attendanceStatus === 'will_attend'} 
+              onChange={() => setAttendanceStatus('will_attend')} 
+              className="hidden" 
             />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="rsvp-status" className="form-label">Kehadiran</label>
-            <select
-              id="rsvp-status"
-              className="form-input"
-              value={attendanceStatus}
-              onChange={(e) => setAttendanceStatus(e.target.value)}
-            >
-              <option value="will_attend">Hadir</option>
-              <option value="unable_to_attend">Tidak Hadir</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="rsvp-guests" className="form-label">Jumlah Tamu</label>
-            <input
-              id="rsvp-guests"
-              type="number"
-              className="form-input"
-              min={1}
-              max={5}
-              value={totalGuest}
-              onChange={(e) => setTotalGuest(Number(e.target.value))}
+          </label>
+          
+          <label className="flex items-center gap-4 cursor-pointer group">
+            <div className={`w-5 h-5 flex items-center justify-center border transition-colors ${attendanceStatus === 'unable_to_attend' ? 'border-[#3a5a78] bg-[#3a5a78]' : 'border-[#3a5a78]/40'}`}>
+               {attendanceStatus === 'unable_to_attend' && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="20 6 9 17 4 12" /></svg>}
+            </div>
+            <span className="text-sm text-[#4a463d]">Maaf, Tidak Bisa Hadir</span>
+            <input 
+              type="radio" 
+              name="attendance" 
+              value="unable_to_attend" 
+              checked={attendanceStatus === 'unable_to_attend'} 
+              onChange={() => setAttendanceStatus('unable_to_attend')} 
+              className="hidden" 
             />
-          </div>
+          </label>
+        </div>
 
-          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-            {isSubmitting ? 'Mengirim...' : 'Kirim RSVP'}
-          </button>
+        {/* Number of Guests (Only show if attending) */}
+        {attendanceStatus === 'will_attend' && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="pt-2"
+          >
+            <p className="text-[10px] uppercase tracking-widest text-[#3a5a78]/60 mb-3">Jumlah Tamu</p>
+            <div className="flex items-center justify-center gap-6 border-b border-[#3a5a78]/40 pb-4">
+              <button
+                type="button"
+                onClick={() => setTotalGuest(prev => Math.max(1, prev - 1))}
+                disabled={totalGuest <= 1}
+                className="w-10 h-10 flex items-center justify-center border border-[#3a5a78]/40 text-[#3a5a78] text-xl font-light hover:bg-[#3a5a78]/10 transition-colors disabled:opacity-30 disabled:hover:bg-transparent"
+              >
+                −
+              </button>
+              <span className="text-2xl font-serif w-8 text-center" style={{ color: '#3a5a78' }}>
+                {totalGuest}
+              </span>
+              <button
+                type="button"
+                onClick={() => setTotalGuest(prev => Math.min(3, prev + 1))}
+                disabled={totalGuest >= 3}
+                className="w-10 h-10 flex items-center justify-center border border-[#3a5a78]/40 text-[#3a5a78] text-xl font-light hover:bg-[#3a5a78]/10 transition-colors disabled:opacity-30 disabled:hover:bg-transparent"
+              >
+                +
+              </button>
+            </div>
+          </motion.div>
+        )}
 
-          {message && (
-            <p className={`form-message ${message.type}`}>
-              {message.text}
-            </p>
-          )}
-        </form>
-      </div>
+        {/* Submit Button */}
+        <button 
+          type="submit" 
+          className="w-full py-4 text-white text-sm tracking-widest uppercase transition-opacity hover:opacity-90 disabled:opacity-50"
+          style={{ backgroundColor: blueColor }}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Mengirim...' : 'Kirim'}
+        </button>
+
+        {/* Status Message */}
+        {message && (
+          <p className={`text-center text-sm p-3 border mt-4 ${message.type === 'success' ? 'border-[#3a5a78] text-[#3a5a78]' : 'border-red-400 text-red-500'}`}>
+            {message.text}
+          </p>
+        )}
+      </motion.form>
     </section>
   );
 }

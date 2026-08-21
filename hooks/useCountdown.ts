@@ -10,11 +10,10 @@ interface CountdownValues {
 }
 
 export function useCountdown(targetDate: string): CountdownValues {
-  const [timeLeft, setTimeLeft] = useState<CountdownValues>(
-    calculateTimeLeft(targetDate)
-  );
+  const [timeLeft, setTimeLeft] = useState<CountdownValues>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
+    setTimeLeft(calculateTimeLeft(targetDate));
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft(targetDate));
     }, 1000);

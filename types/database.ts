@@ -46,3 +46,26 @@ export interface Setting {
   theme_color: string | null;
   created_at: string;
 }
+
+export interface GiftRecommendation {
+  id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  total_needed: number;
+  total_bought: number;
+  image_url: string | null;
+  purchase_link: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface GiftPurchase {
+  id: string;
+  gift_id: string;
+  buyer_name: string;
+  whatsapp_number: string;
+  email: string | null;
+  quantity: number;
+  created_at: string;
+}
