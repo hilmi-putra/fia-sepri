@@ -9,18 +9,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Ghibli vibes
+        // Pixel Game Palette
+        wedding: {
+          primary: "#DAB2B8",
+          secondary: "#E7B1A7",
+          tertiary: "#C8A66B",
+          neutral: "#F7F2E6",
+        },
+        // Old Ghibli vibes (kept for backwards compatibility so build doesn't fail)
         ghibli: {
-          blue: "#4A7c8C", // Serene sky/water blue
-          green: "#6B8E6B", // Earthy grass green
-          cream: "#F4F1E1", // Warm paper/cream background
-          dark: "#2F3E46", // Dark green/slate for text
-          gold: "#D4AF37", // Accent gold
+          blue: "#4A7c8C",
+          green: "#6B8E6B",
+          cream: "#F4F1E1",
+          dark: "#2F3E46",
+          gold: "#D4AF37",
         }
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
-        serif: ['var(--font-lora)', 'serif'], // Optional for headings
+        serif: ['var(--font-lora)', 'serif'],
+        pixel: ['var(--font-press-start)', 'monospace'],
       }
     },
   },
