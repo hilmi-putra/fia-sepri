@@ -24,6 +24,8 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
     const [wishesList, setWishesList] = useState<Wish[]>([]);
     const [wishToDelete, setWishToDelete] = useState<string | null>(null);
     const [isDeleting, setIsDeleting] = useState(false);
+    
+    const [selectedPhoto, setSelectedPhoto] = useState<{url: string, title: string} | null>(null);
 
     const [gifts, setGifts] = useState<GiftRecommendation[]>([]);
     
@@ -245,6 +247,7 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                 <h2 className="text-white text-3xl font-pixel uppercase tracking-widest font-bold text-center drop-shadow-md mb-6 leading-tight">
                     GROOM &<br/>BRIDE
                 </h2>
+                <p className="text-white text-xl sm:text-2xl font-serif mb-4 drop-shadow font-bold">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
                 <p className="text-white font-pixel text-[8px] text-center leading-[1.8] max-w-[280px] drop-shadow-sm font-medium">
                     Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam pernikahan kami.
                 </p>
@@ -255,7 +258,13 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                 {/* Character */}
                 <div className="flex flex-col items-center w-[80px] mt-4 ml-2">
                     <span className="text-white font-pixel text-[10px] font-bold mb-2 drop-shadow-md">SEPRIANOR</span>
-                    <div className="relative flex flex-col items-center">
+                    <div 
+                        className="relative flex flex-col items-center cursor-pointer hover:scale-110 transition-transform active:scale-95 z-20"
+                        onClick={() => setSelectedPhoto({
+                            url: "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Fia%20+%20Sepri%20Prewedding-072.jpg?updatedAt=1787322219677",
+                            title: "SEPRIANOR"
+                        })}
+                    >
                         <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/groom_characters.png?updatedAt=1787985113980" alt="Groom" className="w-[70px] relative z-10 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
                         <img src={floating2} alt="Platform" className="w-[72px] -mt-3 z-0 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
                     </div>
@@ -291,7 +300,13 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                 {/* Character */}
                 <div className="flex flex-col items-center w-[100px] mt-16 mr-2">
                     <span className="text-white font-pixel text-[10px] font-bold mb-2 text-center leading-tight drop-shadow-md">FIA<br/>KHOERUNNISA</span>
-                    <div className="relative flex flex-col items-center">
+                    <div 
+                        className="relative flex flex-col items-center cursor-pointer hover:scale-110 transition-transform active:scale-95 z-20"
+                        onClick={() => setSelectedPhoto({
+                            url: "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Fia%20+%20Sepri%20Prewedding-004.jpg?updatedAt=1787322211836",
+                            title: "FIA"
+                        })}
+                    >
                         <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/bride_characters.png?updatedAt=1787985113617" alt="Bride" className="w-[100px] relative z-10 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
                         <img src={floating2} alt="Platform" className="w-[85px] -mt-5 z-0 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
                     </div>
@@ -711,6 +726,41 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {/* Photo Modal */}
+            <AnimatePresence>
+                {selectedPhoto && (
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4"
+                        onClick={() => setSelectedPhoto(null)}
+                    >
+                        <motion.div 
+                            initial={{ scale: 0.8, y: 50 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={{ scale: 0.8, y: 50, opacity: 0 }}
+                            className="bg-[#f0ede8] p-4 sm:p-6 rounded-sm border-[6px] border-[#5C3A21] shadow-[8px_8px_0_#3e2723] w-full max-w-sm relative flex flex-col items-center pointer-events-auto"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button 
+                                onClick={() => setSelectedPhoto(null)}
+                                className="absolute -top-5 -right-5 w-10 h-10 bg-[#C83B25] text-[#EFEABF] border-4 border-[#3e2723] rounded-full flex justify-center items-center font-pixel text-xl hover:bg-[#a9311e] z-10 shadow-[2px_2px_0_#3e2723]"
+                            >
+                                ×
+                            </button>
+                            <h3 className="font-pixel text-[#5C3A21] text-lg sm:text-xl mb-4 tracking-widest text-center mt-2">{selectedPhoto.title}</h3>
+                            <div className="w-full aspect-[3/4] relative border-4 border-[#3e2723] overflow-hidden bg-[#d0c8b6] shadow-inner p-2">
+                                <div className="w-full h-full border-2 border-dashed border-[#8B5A2B] p-1">
+                                    <img src={selectedPhoto.url} alt={selectedPhoto.title} className="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
         </motion.div>
     );
 }

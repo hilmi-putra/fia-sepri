@@ -9,19 +9,19 @@ interface StoryCardProps {
 
 const STORY_ITEMS = [
   {
-    title: 'pertemuan',
+    title: 'PERTEMUAN',
     content: 'Perjalanan kita, terlalu panjang untuk sekedar diceritakan dengan kata-kata. Ada banyak cerita, jarak, waktu dan proses yang kita lewati bersama. Tidak selalu mudah, tapi kita selalu belajar untuk saling memahami, memberikan dukungan dan memilih tetap bersama saat keadaan terasa sulit. Pada akhirnya, kita memilih untuk menetap dan terus menguatkan satu sama lain untuk selamanya.',
   },
   {
-    title: 'bukti',
+    title: 'BUKTI',
     content: 'Perjalanan ini tidak selalu mudah. Ada Jarak yang harus dilewati, banyak keadaan yang mengajarkan kita tentang kesabaran dan kepercayaan. Setiap ujian menjadi bukti bahwa rasa ini layak diperjuangkan, hingga akhirnya kami yakin untuk menetap, berjalan bersama, dan saling menguatkan untuk selamanya.',
   },
   {
-    title: 'Keyakinan',
+    title: 'KEYAKINAN',
     content: 'Setiap perjalanan memiliki waktu terbaik untuk sampai tujuannya. Kita menantikan hari sakral saat dua Hati dipersatukan dalam ikatan suci',
   },
   {
-    title: 'Awal Selamanya',
+    title: 'AWAL SELAMANYA',
     content: 'Kita akan melangkah ke babak baru dengan penuh syukur, kita memohon doa dan restu dari orang-orang yang kita cintai, agar langkah awal menuju kehidupan baru ini senantiasa diberi keberkahan, kelapangan hati, dan kekuatan untuk berjalan bersama hingga akhir.',
   },
 ];
@@ -60,6 +60,7 @@ export function StoryCard({ onBack }: StoryCardProps) {
         {/* Verse */}
         <div className="text-center mb-10">
           <h2 className="text-white text-sm sm:text-base font-bold mb-3 drop-shadow">Q.S. Ar-Rum ayat 21</h2>
+          <p className="text-white text-xl sm:text-2xl font-serif mb-4 drop-shadow font-bold">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
           <p className="text-white text-[10px] sm:text-xs font-sans leading-relaxed px-4 drop-shadow-md">
             "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
           </p>
@@ -86,16 +87,25 @@ export function StoryCard({ onBack }: StoryCardProps) {
               {/* Content Area within the paper */}
               <div className="relative z-10 w-full h-full">
                 {/* Title on Top Roller */}
-                <h3 className="absolute top-[11.5%] left-0 w-full text-center text-[#5C3A21] text-[10px] sm:text-xs font-pixel font-bold tracking-wider">
+                <h3 className="absolute top-[8.5%] left-0 w-full text-center text-[#5C3A21] text-[10px] sm:text-xs font-pixel font-bold tracking-wider uppercase">
                   {item.title}
                 </h3>
                 
                 {/* Text inside the lighter paper area */}
                 <div className="absolute top-[26%] bottom-[20%] left-[24%] right-[24%] flex flex-col overflow-y-auto custom-scrollbar pr-1">
-                  <p className="text-[#5C3A21] text-[8px] sm:text-[9px] font-pixel leading-[1.8] text-center">
+                  <p className="text-[#5C3A21] text-[8px] sm:text-[9px] font-pixel leading-[1.8] text-center pb-6">
                     "{item.content}"
                   </p>
                 </div>
+
+                {/* Scroll Indicator Arrow */}
+                <motion.div 
+                  className="absolute bottom-[21%] left-0 w-full flex justify-center items-center pointer-events-none"
+                  animate={{ y: [0, 4, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                >
+                  <span className="text-[#5C3A21] text-[10px] sm:text-xs opacity-70 drop-shadow-sm">▼</span>
+                </motion.div>
               </div>
             </motion.div>
           ))}

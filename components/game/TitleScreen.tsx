@@ -44,7 +44,7 @@ export function TitleScreen({ onStart, guestName }: TitleScreenProps) {
       />
 
       {/* Top Section: Title & Start Button */}
-      <div className="z-40 flex flex-col items-center w-full px-4 pt-[15vh] pb-0">
+      <div className="z-40 flex flex-col items-center w-full px-4 pt-[8vh] pb-0">
         <motion.h1 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
