@@ -24,6 +24,15 @@ export function GameContainer({ guestName, couple, events, galleries, wishes }: 
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  useEffect(() => {
+    // Attempt to autoplay music on load
+    if (audioRef.current) {
+      audioRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch(err => console.log("Autoplay prevented by browser:", err));
+    }
+  }, []);
+
   const toggleAudio = () => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -36,7 +45,15 @@ export function GameContainer({ guestName, couple, events, galleries, wishes }: 
     }
   };
 
-  const handleStart = () => setCurrentScreen('ready');
+  const handleStart = () => {
+    setCurrentScreen('ready');
+    // Ensure music plays after user interaction (Start button)
+    if (audioRef.current && audioRef.current.paused) {
+      audioRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {});
+    }
+  };
   const handleReady = () => setCurrentScreen('levelSelect');
   const handleBackToLevels = () => setCurrentScreen('levelSelect');
 
