@@ -28,12 +28,7 @@ export function GameContainer({ guestName, couple, events, galleries, wishes }: 
 
   return (
     <div 
-      className="w-full h-screen overflow-hidden relative font-pixel bg-[#F7F2E6] text-[#3e2723]"
-      style={{
-        backgroundImage: "linear-gradient(to right, #e8dcc8 1px, transparent 1px), linear-gradient(to bottom, #e8dcc8 1px, transparent 1px)",
-        backgroundSize: "60px 60px",
-        backgroundPosition: "center center"
-      }}
+      className="w-full h-screen overflow-hidden relative font-pixel bg-[#73B5E5] text-[#3e2723]"
     >
       <div className="w-full h-full relative z-10 flex items-center justify-center">
         {currentScreen === 'title' && <TitleScreen onStart={handleStart} guestName={guestName} />}
