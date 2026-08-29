@@ -6,15 +6,7 @@ import { getEvents } from '@/services/events';
 import { getGalleries } from '@/services/galleries';
 import { getWishes } from '@/services/wishes';
 import { Navbar } from '@/components/landing/Navbar';
-import { HeroSection } from '@/components/landing/HeroSection';
-import { StorySection } from '@/components/landing/StorySection';
-import { EventSection } from '@/components/landing/EventSection';
-import { CountdownTimer } from '@/components/landing/CountdownTimer';
-import { GallerySection } from '@/components/landing/GallerySection';
-import { RsvpForm } from '@/components/landing/RsvpForm';
-import { WishesSection } from '@/components/landing/WishesSection';
-import { GiftSection } from '@/components/landing/GiftSection';
-import { Footer } from '@/components/landing/Footer';
+import { GameContainer } from '@/components/game/GameContainer';
 
 interface InvitationPageProps {
   params: Promise<{ slug: string }>;
@@ -39,16 +31,14 @@ export default async function InvitationPage({ params }: InvitationPageProps) {
     <>
       <Navbar />
       <main>
-        <HeroSection couple={couple} eventDate={firstEventDate} guestName={guestName} />
-        <StorySection couple={couple} />
-        <EventSection events={events} />
-        {firstEventDate && <CountdownTimer targetDate={firstEventDate} />}
-        <GallerySection galleries={galleries} />
-        <RsvpForm />
-        <WishesSection initialWishes={wishes} />
-        <GiftSection />
+        <GameContainer 
+          guestName={guestName} 
+          couple={couple} 
+          events={events} 
+          galleries={galleries} 
+          wishes={wishes} 
+        />
       </main>
-      <Footer />
     </>
   );
 }
