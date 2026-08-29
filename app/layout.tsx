@@ -8,10 +8,43 @@ const pressStart = Press_Start_2P({ weight: '400', subsets: ['latin'], variable:
 
 export const metadata: Metadata = {
   title: 'Fia & Sepri — Wedding Invitation',
-  description: 'Anda diundang untuk merayakan pernikahan Fia & Sepri. Konfirmasi kehadiran Anda melalui undangan digital ini.',
-  keywords: ['wedding', 'invitation', 'fia', 'sepri', 'pernikahan', 'undangan'],
+  description:
+    'Dengan penuh kebahagiaan, Fia & Sepri mengundang Anda untuk menjadi bagian dari momen istimewa dalam perjalanan cinta kami. Kehadiran dan doa terbaik Anda akan menjadi kebahagiaan yang sangat berarti bagi kami.',
+  keywords: [
+    'wedding',
+    'invitation',
+    'fia',
+    'sepri',
+    'pernikahan',
+    'undangan',
+  ],
+  openGraph: {
+    title: 'Fia & Sepri — Wedding Invitation',
+    description:
+      'Dengan penuh kebahagiaan, Fia & Sepri mengundang Anda untuk menjadi bagian dari momen istimewa dalam perjalanan cinta kami. Mari hadir dan rayakan hari bahagia kami bersama.',
+    url: 'https://fia-sepri.vercel.app/',
+    siteName: 'Fia & Sepri Wedding',
+    images: [
+      {
+        url: 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/cover.jpg?updatedAt=1787319156324',
+        width: 1200,
+        height: 630,
+        alt: 'Fia & Sepri Wedding Cover',
+      },
+    ],
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Fia & Sepri — Wedding Invitation',
+    description:
+      'Dengan penuh kebahagiaan, Fia & Sepri mengundang Anda untuk menjadi bagian dari momen istimewa dalam perjalanan cinta kami. Kehadiran dan doa terbaik Anda akan menjadi kebahagiaan yang sangat berarti bagi kami.',
+    images: [
+      'https://ik.imagekit.io/udvvrj1o2/fia&sepri/cover.jpg?updatedAt=1787319156324',
+    ],
+  },
 };
-
 export default function RootLayout({
   children,
 }: {
