@@ -31,7 +31,7 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
     
     const dateImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/date.png";
     const letterImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/letter%20groom%20&%20bride.png";
-    const mapsImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/maps%20ponyo.png";
+    const mapsImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/maps%20ponyo.png?t=" + new Date().getTime();
     const btnGoogleImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/button%20google.png";
     const groundGrass = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/ground1.png";
     const groundDirt = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/ground3.png";
@@ -398,28 +398,11 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                         
                         <div className="w-full h-[2px] bg-white opacity-80" />
                         
-                        {/* Resepsi */}
                         <div className="flex items-center gap-4 sm:gap-6 py-4 px-2">
                             <span className="text-2xl sm:text-3xl font-bold min-w-[90px] sm:min-w-[120px] text-right">11:00</span>
                             <span className="text-lg sm:text-xl flex-1 tracking-wider">Resepsi</span>
                         </div>
                         
-                        <div className="w-full h-[2px] bg-white opacity-80" />
-                        
-                        {/* Mingle */}
-                        <div className="flex items-start gap-4 sm:gap-6 py-4 px-2">
-                            <span className="text-2xl sm:text-3xl font-bold min-w-[90px] sm:min-w-[120px] text-right">13:00</span>
-                            <div className="flex flex-col flex-1">
-                                <div className="flex items-center gap-2 mb-1">
-                                    <span className="text-lg sm:text-xl tracking-wider">Mingle</span>
-                                    <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/love2.png?updatedAt=1787985114088" alt="Love" className="w-3 sm:w-4 drop-shadow-sm mt-[-8px]" style={{ imageRendering: 'pixelated' }} />
-                                </div>
-                                <p className="text-[6px] sm:text-[7px] leading-[1.6] font-medium opacity-90 max-w-[130px]">
-                                    We recommend arriving at 12:00 so you won&apos;t miss the special moments.
-                                </p>
-                            </div>
-                        </div>
-
                         <div className="w-full h-[2px] bg-white opacity-80 mb-4" />
                     </div>
                 </motion.div>
