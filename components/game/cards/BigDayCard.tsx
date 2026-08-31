@@ -388,18 +388,18 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                     </a>
 
                     {/* Schedule Text */}
-                    <div className="w-full max-w-[320px] px-4 flex flex-col font-pixel text-white drop-shadow-md z-10 mt-4">
+                    <div className="w-full max-w-[360px] px-4 flex flex-col font-pixel text-white drop-shadow-md z-10 mt-4">
                         
                         {/* Akad */}
-                        <div className="flex items-center gap-4 sm:gap-6 py-4 px-2">
-                            <span className="text-2xl sm:text-3xl font-bold min-w-[90px] sm:min-w-[120px] text-right">08:00</span>
+                        <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-6 py-4 px-2 text-center sm:text-left">
+                            <span className="text-2xl sm:text-3xl font-bold sm:min-w-[160px] sm:text-right">08:00</span>
                             <span className="text-lg sm:text-xl flex-1 tracking-wider">Akad</span>
                         </div>
                         
                         <div className="w-full h-[2px] bg-white opacity-80" />
                         
-                        <div className="flex items-center gap-4 sm:gap-6 py-4 px-2">
-                            <span className="text-2xl sm:text-3xl font-bold min-w-[90px] sm:min-w-[120px] text-right">11:00</span>
+                        <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-6 py-4 px-2 text-center sm:text-left">
+                            <span className="text-xl sm:text-2xl font-bold sm:min-w-[160px] sm:text-right">11.00 - 14.00</span>
                             <span className="text-lg sm:text-xl flex-1 tracking-wider">Resepsi</span>
                         </div>
                         
