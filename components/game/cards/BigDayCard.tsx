@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Wish, GiftRecommendation } from '@/types';
 
@@ -10,7 +10,32 @@ interface BigDayCardProps {
     wishes?: any[];
 }
 
+const BANKS = [
+    { id: 'bni', name: 'BNI', number: '1906237060', holder: 'a.n Fia Khoerunnisa' },
+    { id: 'bca', name: 'BCA', number: '7741439721', holder: 'An Fia Khoerunnisa' }
+];
+
 export function BigDayCard({ onBack }: BigDayCardProps) {
+    const giftsScrollRef = useRef<HTMLDivElement>(null);
+
+    const scrollGifts = (direction: 'left' | 'right') => {
+        if (giftsScrollRef.current) {
+            const scrollAmount = 155;
+            giftsScrollRef.current.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    const [selectedBankId, setSelectedBankId] = useState<'bni' | 'bca'>('bni');
+    const [isAddressCopied, setIsAddressCopied] = useState(false);
+
+    const [selectedGiftToBuy, setSelectedGiftToBuy] = useState<GiftRecommendation | null>(null);
+    const [buyerGiftName, setBuyerGiftName] = useState('');
+    const [isBuyingGift, setIsBuyingGift] = useState(false);
+    const [giftToast, setGiftToast] = useState<string | null>(null);
+
     const [rsvpName, setRsvpName] = useState('');
     const [rsvpStatus, setRsvpStatus] = useState('');
     const [rsvpGuests, setRsvpGuests] = useState(1);
@@ -158,9 +183,80 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
     };
 
     const handleCopy = () => {
-        navigator.clipboard.writeText("1906237060");
+        const currentBank = BANKS.find(b => b.id === selectedBankId) || BANKS[0];
+        navigator.clipboard.writeText(currentBank.number);
         setIsCopied(true);
         setTimeout(() => setIsCopied(false), 2000);
+    };
+
+    const handleCopyAddress = () => {
+        const fullAddress = "Fia Khoerunnisa / Sepri - Jakarta Selatan, Jalan Kenangan, Jaksel, Jakarta, DKI Jakarta 10269";
+        navigator.clipboard.writeText(fullAddress);
+        setIsAddressCopied(true);
+        setTimeout(() => setIsAddressCopied(false), 2000);
+    };
+
+    const handleBuyGiftClick = (gift: GiftRecommendation) => {
+        setSelectedGiftToBuy(gift);
+        setBuyerGiftName(rsvpName || '');
+    };
+
+    const handleConfirmPurchase = async () => {
+        if (!selectedGiftToBuy) return;
+        setIsBuyingGift(true);
+        const giftId = selectedGiftToBuy.id;
+        const currentBought = selectedGiftToBuy.total_bought;
+        const link = selectedGiftToBuy.purchase_link;
+
+        try {
+            const response = await fetch('/api/gifts/purchase', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    gift_id: giftId,
+                    buyer_name: buyerGiftName.trim() || 'Tamu',
+                    whatsapp_number: '-',
+                    quantity: 1,
+                    current_total_bought: currentBought
+                })
+            });
+
+            if (response.ok) {
+                // Update local state immediately so stock decreases
+                setGifts(prev => prev.map(g => {
+                    if (g.id === giftId) {
+                        return { ...g, total_bought: g.total_bought + 1 };
+                    }
+                    return g;
+                }));
+
+                setGiftToast(`Berhasil memesan kado ${selectedGiftToBuy.name}! Terima kasih!`);
+                setTimeout(() => setGiftToast(null), 4000);
+
+                if (link) {
+                    window.open(link, '_blank', 'noopener,noreferrer');
+                }
+            } else {
+                console.error('Purchase response not ok');
+                setGifts(prev => prev.map(g => {
+                    if (g.id === giftId) {
+                        return { ...g, total_bought: g.total_bought + 1 };
+                    }
+                    return g;
+                }));
+                if (link) {
+                    window.open(link, '_blank', 'noopener,noreferrer');
+                }
+            }
+        } catch (error) {
+            console.error('Error submitting gift purchase:', error);
+            if (link) {
+                window.open(link, '_blank', 'noopener,noreferrer');
+            }
+        } finally {
+            setIsBuyingGift(false);
+            setSelectedGiftToBuy(null);
+        }
     };
 
     useEffect(() => {
@@ -436,22 +532,50 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                         Doa dan restu Anda pada pernikahan kami sudah cukup sebagai hadiah. Namun jika Anda ingin memberikan hadiah, kami telah menyediakan:
                     </p>
                     <div className="bg-[#C1D2C1] border-[3px] border-[#3e2723] rounded-2xl w-[260px] p-5 shadow-[4px_4px_0_#3e2723] flex flex-col gap-2 font-pixel">
-                        <div className="flex items-center gap-2 mb-2">
-                            <span className="text-[#3e2723] font-bold text-sm italic">BNI</span>
+                        {/* Radio buttons for selecting bank */}
+                        <div className="flex items-center justify-center gap-4 mb-2 pb-2 border-b-2 border-[#3e2723]/20">
+                            {BANKS.map(bank => (
+                                <label key={bank.id} className="flex items-center gap-1.5 cursor-pointer select-none">
+                                    <input 
+                                        type="radio" 
+                                        name="selectedBank" 
+                                        value={bank.id} 
+                                        checked={selectedBankId === bank.id} 
+                                        onChange={() => setSelectedBankId(bank.id as 'bni' | 'bca')}
+                                        className="w-3.5 h-3.5 accent-[#52877B] cursor-pointer" 
+                                    />
+                                    <span className={`text-[9px] font-bold ${selectedBankId === bank.id ? 'text-[#3e2723] underline' : 'text-[#3e2723]/60'}`}>
+                                        {bank.name}
+                                    </span>
+                                </label>
+                            ))}
                         </div>
-                        <span className="text-[#3e2723] font-bold text-lg tracking-wider mb-1">1906237060</span>
-                        <span className="text-[#3e2723] text-[9px] mb-4 uppercase">a.n Fia Khoerunnisa</span>
-                        <button 
-                            onClick={handleCopy}
-                            className={`border-[3px] border-[#3e2723] shadow-[2px_2px_0_#3e2723] text-white py-2 rounded-xl text-[10px] uppercase tracking-wider active:translate-y-1 active:shadow-none flex items-center justify-center gap-2 transition-colors ${isCopied ? 'bg-[#78A977]' : 'bg-[#8BB7A3] hover:bg-[#729e89]'}`}
-                        >
-                            <span>{isCopied ? "BERHASIL DISALIN!" : "SALIN REKENING"}</span>
-                        </button>
+
+                        {/* Selected Bank details */}
+                        {(() => {
+                            const currentBank = BANKS.find(b => b.id === selectedBankId) || BANKS[0];
+                            return (
+                                <>
+                                    <div className="flex items-center justify-between mb-1">
+                                        <span className="text-[#3e2723] font-bold text-sm italic">{currentBank.name}</span>
+                                        <span className="text-[7px] bg-white/60 border border-[#3e2723] px-1.5 py-0.5 rounded text-[#3e2723]">Transfer</span>
+                                    </div>
+                                    <span className="text-[#3e2723] font-bold text-lg tracking-wider mb-1">{currentBank.number}</span>
+                                    <span className="text-[#3e2723] text-[9px] mb-4 uppercase">{currentBank.holder}</span>
+                                    <button 
+                                        onClick={handleCopy}
+                                        className={`border-[3px] border-[#3e2723] shadow-[2px_2px_0_#3e2723] text-white py-2 rounded-xl text-[10px] uppercase tracking-wider active:translate-y-1 active:shadow-none flex items-center justify-center gap-2 transition-colors ${isCopied ? 'bg-[#78A977]' : 'bg-[#8BB7A3] hover:bg-[#729e89]'}`}
+                                    >
+                                        <span>{isCopied ? "BERHASIL DISALIN!" : "SALIN REKENING"}</span>
+                                    </button>
+                                </>
+                            );
+                        })()}
                     </div>
                 </motion.div>
 
                 {/* 7. Gift Recommendations */}
-                <motion.div variants={sectionVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full flex flex-col items-center mb-16 relative">
+                <motion.div variants={sectionVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full flex flex-col items-center mb-12 relative">
                     
                     {/* Clouds */}
                     <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds2.png" alt="Cloud" className="absolute left-[-25%] top-[15%] w-44 opacity-80 pointer-events-none z-0" style={{ imageRendering: 'pixelated' }} />
@@ -463,52 +587,138 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                         Bila Anda ingin memberikan kado fisik secara langsung, berikut adalah beberapa barang yang kami butuhkan untuk menempuh hidup baru.
                     </p>
 
-                    <div className="flex flex-row flex-wrap justify-center gap-4 sm:gap-6 z-10 px-4 w-full">
-                        {gifts.length > 0 ? gifts.map((gift) => (
-                            <div key={gift.id} className="bg-[#C5E1DE] border-[3px] border-[#3e2723] rounded-xl w-[130px] sm:w-[140px] p-2 sm:p-3 flex flex-col items-center shadow-[4px_4px_0_#3e2723] relative pb-3">
-                                
-                                <div className="w-full aspect-[4/3] bg-[#FFF6D9] border-[2px] border-[#3e2723] rounded-lg mb-2 flex items-center justify-center overflow-hidden">
-                                    {gift.image_url ? (
-                                        <img src={gift.image_url} alt={gift.name} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <span className="text-3xl">🎁</span>
-                                    )}
-                                </div>
-                                
-                                {/* Ribbon Title */}
-                                <div className="bg-[#E5E9D5] border-[2px] border-[#3e2723] w-[110%] px-1 py-1.5 -mt-3 mb-2 text-center shadow-sm z-10 rounded">
-                                    <span className="text-[#3e2723] font-pixel text-[7px] sm:text-[8px] font-bold uppercase line-clamp-1">{gift.name}</span>
-                                </div>
-                                
-                                <div className="w-full flex flex-col px-1 mb-3">
-                                    <span className="text-[#3e2723] font-pixel text-[7px] sm:text-[8px] font-bold line-clamp-1">{gift.description || '-'}</span>
-                                    <span className="text-[#3e2723] font-pixel text-[6px] sm:text-[7px]">Rp {gift.price.toLocaleString('id-ID')}</span>
-                                    <span className="text-[#7a5c4f] font-pixel text-[5px] sm:text-[6px] mt-1 font-bold">{gift.total_bought}/{gift.total_needed} terbeli</span>
-                                </div>
-                                
-                                {gift.purchase_link ? (
-                                    <a 
-                                        href={gift.purchase_link} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="bg-[#C1D2C1] text-[#3e2723] border-[2px] border-[#3e2723] w-[95%] rounded-lg text-[7px] sm:text-[8px] font-pixel font-bold py-1.5 shadow-[2px_2px_0_#3e2723] hover:bg-[#a8bda8] active:translate-y-1 active:shadow-none uppercase text-center"
-                                    >
-                                        Beli Kado
-                                    </a>
-                                ) : (
-                                    <button 
-                                        disabled 
-                                        className="bg-gray-300 text-gray-500 border-[2px] border-[#3e2723] w-[95%] rounded-lg text-[7px] sm:text-[8px] font-pixel font-bold py-1.5 uppercase cursor-not-allowed"
-                                    >
-                                        Habis
-                                    </button>
+                    {/* Bounded Horizontal Scroll Container */}
+                    <div className="relative w-full max-w-[340px] sm:max-w-[380px] z-10 px-2">
+                        {/* Outer Pixel Card Frame / Container */}
+                        <div className="bg-[#E5E9D5]/90 border-[3px] border-[#3e2723] rounded-2xl p-3 sm:p-4 shadow-[4px_4px_0_#3e2723] relative">
+                            
+                            {/* Navigation Left Button */}
+                            <button 
+                                onClick={() => scrollGifts('left')}
+                                aria-label="Geser Kiri"
+                                className="absolute -left-3 sm:-left-4 top-1/2 -translate-y-1/2 z-20 bg-[#FFF6D9] text-[#3e2723] border-[2px] border-[#3e2723] w-8 h-8 rounded-full shadow-[2px_2px_0_#3e2723] flex items-center justify-center font-pixel text-xs hover:bg-white active:scale-90 transition-transform cursor-pointer"
+                            >
+                                ◄
+                            </button>
+
+                            {/* Navigation Right Button */}
+                            <button 
+                                onClick={() => scrollGifts('right')}
+                                aria-label="Geser Kanan"
+                                className="absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 z-20 bg-[#FFF6D9] text-[#3e2723] border-[2px] border-[#3e2723] w-8 h-8 rounded-full shadow-[2px_2px_0_#3e2723] flex items-center justify-center font-pixel text-xs hover:bg-white active:scale-90 transition-transform cursor-pointer"
+                            >
+                                ►
+                            </button>
+
+                            {/* Horizontal Scroll Area */}
+                            <div 
+                                ref={giftsScrollRef}
+                                className="flex flex-row overflow-x-auto gap-3 py-1 px-1 snap-x snap-mandatory scroll-smooth items-stretch hide-scrollbar"
+                                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                            >
+                                {gifts.length > 0 ? gifts.map((gift) => {
+                                    const isSoldOut = gift.total_bought >= gift.total_needed;
+                                    return (
+                                        <div 
+                                            key={gift.id} 
+                                            className="bg-[#C5E1DE] border-[3px] border-[#3e2723] rounded-xl w-[130px] sm:w-[140px] flex-shrink-0 snap-center p-2 sm:p-3 flex flex-col items-center shadow-[3px_3px_0_#3e2723] relative pb-3 justify-between"
+                                        >
+                                            <div className="w-full flex flex-col items-center">
+                                                <div className="w-full aspect-[4/3] bg-[#FFF6D9] border-[2px] border-[#3e2723] rounded-lg mb-2 flex items-center justify-center overflow-hidden">
+                                                    {gift.image_url ? (
+                                                        <img src={gift.image_url} alt={gift.name} className="w-full h-full object-cover" />
+                                                    ) : (
+                                                        <span className="text-3xl">🎁</span>
+                                                    )}
+                                                </div>
+                                                
+                                                {/* Ribbon Title */}
+                                                <div className="bg-[#E5E9D5] border-[2px] border-[#3e2723] w-[110%] px-1 py-1.5 -mt-3 mb-2 text-center shadow-sm z-10 rounded">
+                                                    <span className="text-[#3e2723] font-pixel text-[7px] sm:text-[8px] font-bold uppercase line-clamp-1" title={gift.name}>{gift.name}</span>
+                                                </div>
+                                                
+                                                <div className="w-full flex flex-col px-1 mb-2 text-center">
+                                                    <span className="text-[#3e2723] font-pixel text-[7px] sm:text-[8px] font-bold line-clamp-1" title={gift.description || gift.name}>{gift.description || gift.name}</span>
+                                                    <span className="text-[#3e2723] font-pixel text-[6px] sm:text-[7px]">Rp {gift.price.toLocaleString('id-ID')}</span>
+                                                    <span className={`font-pixel text-[5px] sm:text-[6px] mt-1 font-bold ${isSoldOut ? 'text-[#a93226]' : 'text-[#7a5c4f]'}`}>
+                                                        {gift.total_bought}/{gift.total_needed} terbeli
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Action Buttons: BELI KADO & LINK */}
+                                            <div className="w-full flex flex-col items-center gap-1 mt-auto">
+                                                {isSoldOut ? (
+                                                    <button 
+                                                        disabled 
+                                                        className="bg-gray-300 text-gray-500 border-[2px] border-[#3e2723] w-[95%] rounded-lg text-[7px] sm:text-[8px] font-pixel font-bold py-1.5 uppercase cursor-not-allowed"
+                                                    >
+                                                        Habis
+                                                    </button>
+                                                ) : (
+                                                    <button 
+                                                        onClick={() => handleBuyGiftClick(gift)}
+                                                        className="bg-[#C1D2C1] text-[#3e2723] border-[2px] border-[#3e2723] w-[95%] rounded-lg text-[7px] sm:text-[8px] font-pixel font-bold py-1.5 shadow-[2px_2px_0_#3e2723] hover:bg-[#a8bda8] active:translate-y-1 active:shadow-none uppercase text-center cursor-pointer transition-transform"
+                                                    >
+                                                        Beli Kado
+                                                    </button>
+                                                )}
+
+                                                {gift.purchase_link && (
+                                                    <a 
+                                                        href={gift.purchase_link} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer"
+                                                        className="text-[#3e2723] font-pixel text-[6px] sm:text-[7px] underline hover:text-[#52877B] flex items-center gap-0.5 mt-0.5 tracking-wider font-semibold"
+                                                    >
+                                                        <span>Link</span>
+                                                        <span>↗</span>
+                                                    </a>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                }) : (
+                                    <div className="text-[#3e2723] font-pixel text-[10px] text-center w-full py-6">
+                                        Belum ada rekomendasi hadiah
+                                    </div>
                                 )}
                             </div>
-                        )) : (
-                            <div className="text-white font-pixel text-[10px] text-center w-full py-4">
-                                Belum ada rekomendasi hadiah
+
+                            {/* Swipe hint */}
+                            <div className="text-center mt-2">
+                                <span className="text-[6px] sm:text-[7px] font-pixel text-[#3e2723]/70">
+                                    ◄ Geser untuk melihat lainnya ►
+                                </span>
                             </div>
-                        )}
+
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* 7b. Alamat Pengiriman Section */}
+                <motion.div variants={sectionVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full flex flex-col items-center mb-16 z-10">
+                    <h2 className="text-white text-xl sm:text-2xl font-pixel uppercase tracking-widest font-bold drop-shadow-md mb-4 text-center">ALAMAT<br />PENGIRIMAN</h2>
+                    <p className="text-white font-pixel text-[8px] text-center mb-6 leading-[1.6] px-8 max-w-[300px] font-medium drop-shadow-sm">
+                        Bila Anda ingin mengirimkan kado fisik secara langsung, silakan kirim ke alamat berikut:
+                    </p>
+                    <div className="bg-[#E5E9D5] border-[3px] border-[#3e2723] rounded-2xl w-[260px] sm:w-[280px] p-5 shadow-[4px_4px_0_#3e2723] flex flex-col gap-2 font-pixel">
+                        <div className="flex items-center gap-2 mb-1">
+                            <span className="text-sm">📦</span>
+                            <span className="text-[#3e2723] font-bold text-xs uppercase">Alamat Penerima</span>
+                        </div>
+                        <div className="bg-white/80 border-2 border-[#3e2723] rounded-xl p-3 flex flex-col gap-1 mb-2">
+                            <span className="text-[#3e2723] font-bold text-[10px]">Fia Khoerunnisa / Sepri</span>
+                            <p className="text-[#3e2723] text-[8px] leading-relaxed">
+                                Jakarta Selatan, Jalan Kenangan, Jaksel, Jakarta, DKI Jakarta 10269
+                            </p>
+                        </div>
+                        <button 
+                            onClick={handleCopyAddress}
+                            className={`border-[3px] border-[#3e2723] shadow-[2px_2px_0_#3e2723] text-white py-2 rounded-xl text-[10px] uppercase tracking-wider active:translate-y-1 active:shadow-none flex items-center justify-center gap-2 transition-colors ${isAddressCopied ? 'bg-[#78A977]' : 'bg-[#52877B] hover:bg-[#437267]'}`}
+                        >
+                            <span>{isAddressCopied ? "BERHASIL DISALIN!" : "SALIN ALAMAT"}</span>
+                        </button>
                     </div>
                 </motion.div>
 
@@ -706,6 +916,102 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                                 </button>
                             </div>
                         </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Gift Purchase Modal */}
+            <AnimatePresence>
+                {selectedGiftToBuy && (
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4"
+                        onClick={() => !isBuyingGift && setSelectedGiftToBuy(null)}
+                    >
+                        <motion.div 
+                            initial={{ scale: 0.8, y: 50 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={{ scale: 0.8, y: 50, opacity: 0 }}
+                            className="bg-[#f0ede8] p-4 sm:p-6 rounded-2xl border-[5px] border-[#3e2723] shadow-[8px_8px_0_#3e2723] w-full max-w-[320px] relative flex flex-col items-center pointer-events-auto font-pixel text-[#3e2723]"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button 
+                                onClick={() => !isBuyingGift && setSelectedGiftToBuy(null)}
+                                className="absolute -top-4 -right-4 w-9 h-9 bg-[#C83B25] text-white border-3 border-[#3e2723] rounded-full flex justify-center items-center font-pixel text-lg hover:bg-[#a9311e] z-10 shadow-[2px_2px_0_#3e2723]"
+                            >
+                                ×
+                            </button>
+
+                            <h3 className="font-pixel text-[#3e2723] text-sm sm:text-base mb-3 uppercase tracking-wider font-bold">
+                                Beli Kado
+                            </h3>
+
+                            {/* Gift image & title */}
+                            <div className="w-20 h-20 bg-[#FFF6D9] border-2 border-[#3e2723] rounded-lg overflow-hidden mb-2 flex items-center justify-center p-1">
+                                {selectedGiftToBuy.image_url ? (
+                                    <img src={selectedGiftToBuy.image_url} alt={selectedGiftToBuy.name} className="w-full h-full object-cover rounded" />
+                                ) : (
+                                    <span className="text-3xl">🎁</span>
+                                )}
+                            </div>
+
+                            <span className="text-xs font-bold uppercase text-center mb-1 line-clamp-1">{selectedGiftToBuy.name}</span>
+                            <span className="text-[10px] text-[#52877B] font-bold mb-1">
+                                Rp {selectedGiftToBuy.price.toLocaleString('id-ID')}
+                            </span>
+                            <span className="text-[7px] text-[#7a5c4f] font-bold mb-3">
+                                Tersisa {Math.max(0, selectedGiftToBuy.total_needed - selectedGiftToBuy.total_bought)} dari {selectedGiftToBuy.total_needed} item
+                            </span>
+
+                            {/* Buyer Name Input */}
+                            <div className="w-full flex flex-col gap-1 mb-3">
+                                <span className="text-[8px] font-bold">Nama Pembeli:</span>
+                                <input 
+                                    type="text" 
+                                    placeholder="Nama Lengkap (Opsional)" 
+                                    value={buyerGiftName}
+                                    onChange={(e) => setBuyerGiftName(e.target.value)}
+                                    className="w-full bg-white border-2 border-[#3e2723] rounded-lg px-2.5 py-2 text-[9px] shadow-sm outline-none placeholder-gray-400 text-[#3e2723]"
+                                />
+                            </div>
+
+                            <p className="text-[7px] text-center text-[#7a5c4f] leading-[1.5] mb-4">
+                                *Dengan menekan Beli Sekarang, stok kado akan otomatis berkurang dan Anda akan diarahkan ke toko Shopee.
+                            </p>
+
+                            <div className="w-full flex gap-2">
+                                <button 
+                                    onClick={() => setSelectedGiftToBuy(null)}
+                                    disabled={isBuyingGift}
+                                    className="flex-1 bg-white text-[#3e2723] border-[2px] border-[#3e2723] shadow-[2px_2px_0_#3e2723] py-2 rounded-lg text-[9px] uppercase font-bold hover:bg-gray-100 active:translate-y-[1px] active:shadow-none disabled:opacity-50"
+                                >
+                                    Batal
+                                </button>
+                                <button 
+                                    onClick={handleConfirmPurchase}
+                                    disabled={isBuyingGift}
+                                    className="flex-1 bg-[#52877B] text-white border-[2px] border-[#3e2723] shadow-[2px_2px_0_#3e2723] py-2 rounded-lg text-[9px] uppercase font-bold hover:bg-[#437267] active:translate-y-[1px] active:shadow-none disabled:opacity-50"
+                                >
+                                    {isBuyingGift ? 'Memproses...' : 'Beli Sekarang'}
+                                </button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Gift Toast */}
+            <AnimatePresence>
+                {giftToast && (
+                    <motion.div 
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 40 }}
+                        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[110] bg-[#78A977] text-white border-[3px] border-[#3e2723] rounded-xl px-4 py-3 shadow-[4px_4px_0_#3e2723] font-pixel text-[9px] text-center max-w-[280px]"
+                    >
+                        ✓ {giftToast}
                     </motion.div>
                 )}
             </AnimatePresence>
