@@ -7,12 +7,26 @@ export async function POST(request: Request) {
     const supabase = await createClient();
     const body = await request.json();
     
-    const { gift_id, buyer_name, whatsapp_number, email, quantity, current_total_bought } = body;
+    const gift_id = body.gift_id;
+    const buyer_name = (body.buyer_name && body.buyer_name.trim()) ? body.buyer_name.trim() : 'Tamu';
+    const whatsapp_number = (body.whatsapp_number && body.whatsapp_number.trim()) ? body.whatsapp_number.trim() : '-';
+    const email = body.email || null;
+    const quantity = body.quantity || 1;
+    let current_total_bought = body.current_total_bought;
     
-    if (!gift_id || !buyer_name || !whatsapp_number || !quantity || current_total_bought === undefined) {
+    if (!gift_id) {
       return NextResponse.json({ 
-        error: 'gift_id, buyer_name, whatsapp_number, quantity, and current_total_bought are required' 
+        error: 'gift_id is required' 
       }, { status: 400 });
+    }
+
+    if (current_total_bought === undefined) {
+      const { data: giftData } = await supabase
+        .from('gift_recommendations')
+        .select('total_bought')
+        .eq('id', gift_id)
+        .single();
+      current_total_bought = giftData?.total_bought ?? 0;
     }
     
     const purchase = await submitGiftPurchase(

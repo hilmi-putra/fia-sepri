@@ -216,5 +216,14 @@ VALUES ('', '#1a365d');
 
 INSERT INTO gift_recommendations (name, description, price, total_needed, total_bought, image_url, purchase_link)
 VALUES
-  ('Mirror', 'Long Mirror', 500000, 3, 1, 'https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'https://example.com/buy-mirror'),
-  ('Bedcover', 'King Size White Bedcover', 2500000, 4, 0, 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'https://example.com/buy-bedcover');
+  ('Mini Espresso', 'Mini Espresso', 410000, 3, 0, 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/Wedding%20Gift/mini%20espresso.png?updatedAt=1789223784895', 'https://id.shp.ee/9kfHK6xe'),
+  ('Papan Setrika', 'Papan Setrika', 100000, 3, 0, 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/Wedding%20Gift/meja%20setrika.png?updatedAt=1789223786484', 'https://id.shp.ee/E8v3DtLE'),
+  ('Tempat Beras', 'Tempat Beras', 107000, 3, 0, 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/Wedding%20Gift/tempat%20beras.png?updatedAt=1789223790481', 'https://id.shp.ee/RrjF6fay'),
+  ('Rice Cooker', 'Rice Cooker', 296000, 3, 0, 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/Wedding%20Gift/rice%20cooker.png?updatedAt=1789223789913', 'https://id.shp.ee/GQnprGHC'),
+  ('Microwave', 'Microwave', 1047000, 3, 0, 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/Wedding%20Gift/microwave.png?updatedAt=1789223790879', 'https://id.shp.ee/Vwhtvovk'),
+  ('Set Pisau', 'Set Pisau', 90000, 3, 0, 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/Wedding%20Gift/set%20pisau.png?updatedAt=1789223791359', 'https://id.shp.ee/JEt3wtRP'),
+  ('Diffuser', 'Diffuser', 120000, 3, 0, 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/Wedding%20Gift/humidifer.png?updatedAt=1789223789448', 'https://id.shp.ee/ot5HhoW1'),
+  ('Alat Pel', 'Alat Pel', 198000, 3, 0, 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/Wedding%20Gift/alat%20pel.png?updatedAt=1789223788474', 'https://id.shp.ee/EpuvBWqh'),
+  ('Set Alat Masak', 'Set Alat Masak', 106000, 3, 0, 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/Wedding%20Gift/set%20alat%20masak.png?updatedAt=1789223791022', 'https://id.shp.ee/2M8ytLbA'),
+  ('Wajan', 'Wajan', 192000, 3, 0, 'https://ik.imagekit.io/udvvrj1o2/fia&sepri/Wedding%20Gift/wajan.png?updatedAt=1789223790808', 'https://id.shp.ee/JULeFYtu');
+
