@@ -55,11 +55,53 @@ export function TitleScreen({ onStart, guestName }: TitleScreenProps) {
           WEDDING INVITATION<br/>FIA & SEPRI
         </motion.h1>
 
-        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: 'spring', stiffness: 200 }} className="relative mb-12 cursor-pointer" onClick={onStart}>
-          <div className="px-8 py-3 bg-white text-black text-xl sm:text-2xl border-4 border-black rounded-lg hover:bg-gray-100 transition-colors tracking-widest font-bold relative z-20" style={{ boxShadow: "0 4px 0px rgba(0,0,0,0.1)" }}>
-            Start
-          </div>
-          <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-white border-b-4 border-r-4 border-black rotate-45 z-10" />
+        <motion.div 
+          initial={{ scale: 0 }} 
+          animate={{ scale: 1 }} 
+          transition={{ delay: 0.3, type: 'spring', stiffness: 200 }} 
+          className="relative mb-12 flex flex-col items-center cursor-pointer group select-none" 
+          onClick={onStart}
+        >
+          {/* Animated Start Bubble */}
+          <motion.div
+            animate={{ 
+              y: [0, -8, 0],
+              scale: [1, 1.04, 1]
+            }}
+            transition={{ 
+              duration: 1.6, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+            whileHover={{ scale: 1.12 }}
+            whileTap={{ scale: 0.92 }}
+            className="relative"
+          >
+            <div 
+              className="px-8 py-3 bg-white text-black text-xl sm:text-2xl border-4 border-black rounded-lg group-hover:bg-yellow-100 transition-colors tracking-widest font-bold relative z-20 shadow-[0_6px_0_rgba(0,0,0,0.25)]"
+            >
+              Start
+            </div>
+            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-white border-b-4 border-r-4 border-black rotate-45 z-10 group-hover:bg-yellow-100 transition-colors" />
+          </motion.div>
+
+          {/* Animated Call-to-action indicator */}
+          <motion.div 
+            animate={{ 
+              opacity: [0.35, 1, 0.35],
+              y: [0, 2, 0]
+            }}
+            transition={{ 
+              duration: 1.2, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+            className="mt-4 flex items-center gap-1.5 text-white font-pixel text-[8px] sm:text-[9px] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-widest uppercase"
+          >
+            <span className="text-yellow-300">▶</span>
+            <span>KLIK UNTUK MULAI</span>
+            <span className="text-yellow-300">◀</span>
+          </motion.div>
         </motion.div>
       </div>
 

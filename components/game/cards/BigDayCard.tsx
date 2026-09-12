@@ -190,7 +190,7 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
     };
 
     const handleCopyAddress = () => {
-        const fullAddress = "Fia Khoerunnisa / Sepri - Jakarta Selatan, Jalan Kenangan, Jaksel, Jakarta, DKI Jakarta 10269";
+        const fullAddress = "Fia Khoerunnisa / Sepri - Gg. Sehati No.7B, Pedungan, Denpasar Selatan (Pesanggaran), KOTA DENPASAR, DENPASAR SELATAN, BALI, ID, 80222";
         navigator.clipboard.writeText(fullAddress);
         setIsAddressCopied(true);
         setTimeout(() => setIsAddressCopied(false), 2000);
@@ -710,7 +710,7 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                         <div className="bg-white/80 border-2 border-[#3e2723] rounded-xl p-3 flex flex-col gap-1 mb-2">
                             <span className="text-[#3e2723] font-bold text-[10px]">Fia Khoerunnisa / Sepri</span>
                             <p className="text-[#3e2723] text-[8px] leading-relaxed">
-                                Jakarta Selatan, Jalan Kenangan, Jaksel, Jakarta, DKI Jakarta 10269
+                                Gg. Sehati No.7B, Pedungan, Denpasar Selatan (Pesanggaran), KOTA DENPASAR, DENPASAR SELATAN, BALI, ID, 80222
                             </p>
                         </div>
                         <button 

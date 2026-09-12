@@ -46,7 +46,7 @@ export function GiftDetailModal({ gift, onClose, onPurchaseSuccess }: Props) {
                 <div className="mb-6">
                   <h4 className="font-bold text-ghibli-blue text-lg mb-1">Shipping Address</h4>
                   <p className="text-ghibli-dark text-sm">
-                    Jakarta Selatan, Jalan Kenangan, Jaksel, Jakarta, DKI Jakarta 10269
+                    Gg. Sehati No.7B, Pedungan, Denpasar Selatan (Pesanggaran), KOTA DENPASAR, DENPASAR SELATAN, BALI, ID, 80222
                   </p>
                 </div>
 
