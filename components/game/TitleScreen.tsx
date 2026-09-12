@@ -23,7 +23,7 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
 
         {/* Animated Start Button — centered exactly with the red carpet altar */}
         <motion.div
-          className="absolute left-1/2 -ml-[18%] bottom-[13%] w-[36%] max-w-[210px] cursor-pointer z-30 flex items-center justify-center"
+          className="absolute left-1/2 -ml-[18%] bottom-[10%] w-[36%] max-w-[210px] cursor-pointer z-30 flex items-center justify-center"
           onClick={onStart}
           animate={{
             y: [0, -6, 0],
