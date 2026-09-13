@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { LogOut } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 
 interface AdminNavbarProps {
@@ -20,8 +21,9 @@ export function AdminNavbar({ title }: AdminNavbarProps) {
   return (
     <header className="admin-navbar">
       <h1 className="admin-navbar-title">{title}</h1>
-      <button className="btn btn-secondary btn-sm" onClick={handleLogout}>
-        Logout
+      <button className="btn btn-secondary btn-sm admin-logout" onClick={handleLogout}>
+        <LogOut size={16} strokeWidth={2} />
+        <span>Logout</span>
       </button>
     </header>
   );

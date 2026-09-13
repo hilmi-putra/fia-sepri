@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { ArrowRight, LockKeyhole, ShieldCheck } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 
 export default function AdminLoginClient() {
@@ -39,18 +40,30 @@ export default function AdminLoginClient() {
 
   return (
     <div className="login-page">
-      <div className="login-card">
-        <h1 className="login-title">🎊 Admin Panel</h1>
-        <p className="login-subtitle">Fia & Sepri Wedding Invitation</p>
+      <div className="login-shell">
+        <div className="login-aside">
+          <div className="login-brand-mark"><ShieldCheck size={22} strokeWidth={2.2} /></div>
+          <p className="login-eyebrow">Fia &amp; Sepri</p>
+          <h1>Wedding administration, kept simple.</h1>
+          <p className="login-aside-copy">A private space to review guest responses, wishes, and wedding gift activity.</p>
+          <div className="login-aside-note"><LockKeyhole size={15} /> Secure access for invited administrators</div>
+        </div>
 
-        <form onSubmit={handleLogin}>
+        <div className="login-card">
+          <div className="login-heading">
+            <p className="login-kicker">Welcome back</p>
+            <h2>Sign in to continue</h2>
+            <p className="login-subtitle">Use your Supabase administrator account.</p>
+          </div>
+
+          <form onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="login-email" className="form-label">Email</label>
             <input
               id="login-email"
               type="email"
               className="form-input"
-              placeholder="admin@example.com"
+              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -76,13 +89,14 @@ export default function AdminLoginClient() {
 
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary login-submit"
             disabled={isLoading}
-            style={{ marginTop: '1rem' }}
           >
-            {isLoading ? 'Signing in...' : 'Sign In'}
+            <span>{isLoading ? 'Signing in...' : 'Sign in securely'}</span>
+            {!isLoading && <ArrowRight size={17} />}
           </button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );

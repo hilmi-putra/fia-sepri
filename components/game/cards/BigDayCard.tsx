@@ -479,7 +479,7 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
 
                     <img src={mapsImg} alt="Maps Ponyo" className="w-[85%] max-w-[280px] mb-4 drop-shadow-md z-10" style={{ imageRendering: 'pixelated' }} />
 
-                    <a href="https://maps.app.goo.gl/XVcdKnxemtvnv1Sj6" target="_blank" rel="noreferrer" className="w-[50%] max-w-[180px] hover:scale-105 active:scale-95 transition-transform mb-8 z-10">
+                    <a href="https://maps.app.goo.gl/JePQmfd2jbk2qRKb8" target="_blank" rel="noopener noreferrer" className="w-[50%] max-w-[180px] hover:scale-105 active:scale-95 transition-transform mb-8 z-10">
                         <img src={btnGoogleImg} alt="Google Maps" className="w-full drop-shadow" style={{ imageRendering: 'pixelated' }} />
                     </a>
 
