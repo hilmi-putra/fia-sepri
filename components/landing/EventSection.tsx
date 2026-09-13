@@ -74,7 +74,9 @@ export function EventSection({ events }: EventSectionProps) {
               
               <div className="mt-8 pt-6 border-t border-ghibli-dark/5">
                 <a 
-                  href="#" 
+                  href="https://maps.app.goo.gl/JePQmfd2jbk2qRKb8"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block w-full py-3 px-4 bg-ghibli-blue text-white rounded-xl text-center text-sm font-medium hover:bg-ghibli-blue/90 transition-colors shadow-md shadow-ghibli-blue/20"
                 >
                   View on Google Maps

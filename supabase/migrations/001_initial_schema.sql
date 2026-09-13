@@ -181,11 +181,10 @@ CREATE TABLE IF NOT EXISTS gift_purchases (
 
 ALTER TABLE gift_purchases ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Public can read gift purchases"
-  ON gift_purchases FOR SELECT
-  USING (true);
+  CREATE POLICY "Authenticated users can read gift purchases"
+    ON gift_purchases FOR SELECT
+    USING (auth.role() = 'authenticated');
 
--- Public can INSERT purchases
 CREATE POLICY "Public can insert gift purchases"
   ON gift_purchases FOR INSERT
   WITH CHECK (true);

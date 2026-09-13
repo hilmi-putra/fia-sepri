@@ -2,14 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ExternalLink, LayoutDashboard, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
-  { href: '/admin/dashboard', icon: '📊', label: 'Dashboard' },
-  { href: '/admin/rsvps', icon: '📋', label: 'RSVPs' },
-  { href: '/admin/wishes', icon: '💌', label: 'Wishes' },
-  { href: '/admin/galleries', icon: '🖼️', label: 'Gallery' },
-  { href: '/admin/settings', icon: '⚙️', label: 'Settings' },
+  { href: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
 ];
 
 export function Sidebar() {
@@ -18,7 +15,13 @@ export function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <Link href="/admin/dashboard">🎊 Admin Panel</Link>
+        <Link href="/admin/dashboard" className="sidebar-brand-link">
+          <span className="sidebar-brand-mark"><ShieldCheck size={18} strokeWidth={2.2} /></span>
+          <span>
+            <strong>Fia &amp; Sepri</strong>
+            <small>Wedding admin</small>
+          </span>
+        </Link>
       </div>
 
       <ul className="sidebar-nav">
@@ -28,7 +31,7 @@ export function Sidebar() {
               href={item.href}
               className={cn('sidebar-link', pathname === item.href && 'active')}
             >
-              <span className="sidebar-link-icon">{item.icon}</span>
+              <span className="sidebar-link-icon"><item.icon size={18} strokeWidth={2} /></span>
               {item.label}
             </Link>
           </li>
@@ -37,7 +40,7 @@ export function Sidebar() {
 
       <div className="sidebar-footer">
         <Link href="/" className="sidebar-link">
-          <span className="sidebar-link-icon">🌐</span>
+          <span className="sidebar-link-icon"><ExternalLink size={17} strokeWidth={2} /></span>
           View Site
         </Link>
       </div>
