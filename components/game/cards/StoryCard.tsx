@@ -27,8 +27,8 @@ const STORY_ITEMS = [
 ];
 
 export function StoryCard({ onBack }: StoryCardProps) {
-  const groundGrass = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/ground1.png";
-  const groundDirt = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/ground3.png";
+  const groundTop = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Ground1.png";
+  const groundBottom = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Ground2.png";
   const letterImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/letter.png";
 
   return (
@@ -46,9 +46,9 @@ export function StoryCard({ onBack }: StoryCardProps) {
       </button>
 
       {/* Sky & Background Elements */}
-      <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds2.png" alt="Cloud" className="fixed top-[2%] left-[-2%] w-24 md:w-32 opacity-90 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} />
-      <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds3.png" alt="Cloud" className="fixed top-[8%] right-[2%] w-20 md:w-28 opacity-85 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} />
-      <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds1.png" alt="Cloud" className="fixed top-[25%] left-[30%] w-32 md:w-48 opacity-80 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} />
+      <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds2.PNG?updatedAt=1789282180439" alt="Cloud" className="fixed top-[2%] left-[-2%] w-24 md:w-32 opacity-90 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} />
+      <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds3.PNG?updatedAt=1789282180491" alt="Cloud" className="fixed top-[8%] right-[2%] w-20 md:w-28 opacity-85 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} />
+      <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds1.PNG?updatedAt=1789282179898" alt="Cloud" className="fixed top-[25%] left-[30%] w-32 md:w-48 opacity-80 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} />
 
       <div className="w-full max-w-md pt-12 pb-12 px-4 z-20 flex flex-col items-center">
         
@@ -115,12 +115,11 @@ export function StoryCard({ onBack }: StoryCardProps) {
 
       {/* Strict Pixel Grid Bottom Stage - Relative to flow at the end */}
       <div className="relative w-full h-[300px] pointer-events-none z-10 mt-auto flex-shrink-0">
-        <div className="absolute bottom-[128px] w-full h-[180px] bg-repeat-x bg-bottom z-10" style={{ backgroundImage: 'url("https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/background.png")', backgroundSize: 'auto 100%', imageRendering: 'pixelated' }} />
-        <div className="absolute bottom-0 w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundDirt}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
-        <div className="absolute bottom-[64px] w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundGrass}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
+        <div className="absolute bottom-0 w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundBottom}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
+        <div className="absolute bottom-[64px] w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundTop}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
         <div className="absolute bottom-[128px] left-1/2 -translate-x-1/2 w-full max-w-[500px] h-[172px] z-30">
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center z-40">
-            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/groom&bride2.png" alt="Groom and Bride" className="w-[100px] sm:w-[120px] h-auto drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
+            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Groom&bride2.PNG?updatedAt=1789282182064" alt="Groom and Bride" className="w-[100px] sm:w-[120px] h-auto drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
           </div>
         </div>
       </div>

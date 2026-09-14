@@ -69,6 +69,11 @@
   .custom-scrollbar::-webkit-scrollbar-corner {
     background: transparent;
   }
+
+  img[alt="Cloud"] {
+    opacity: 0.6;
+    scale: 1.25;
+  }
 }
 
 @layer components {

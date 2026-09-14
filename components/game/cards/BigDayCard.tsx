@@ -58,10 +58,10 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
     const letterImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/letter%20groom%20&%20bride.png";
     const mapsImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/maps%20ponyo.png?t=" + new Date().getTime();
     const btnGoogleImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/button%20google.png";
-    const groundGrass = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/ground1.png";
-    const groundDirt = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/ground3.png";
-    const floating2 = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/floating2.png";
-    const coupleImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/groom&bride2.png";
+    const groundTop = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Ground1.png";
+    const groundBottom = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Ground2.png";
+    const floating3 = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Floating3.PNG?updatedAt=1789282182073";
+    const coupleImg = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Groom&bride2.PNG?updatedAt=1789282182064";
 
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     const [isCopied, setIsCopied] = useState(false);
@@ -301,8 +301,8 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
             </button>
 
             {/* Sky & Background Elements */}
-            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds2.png" alt="Cloud" className="absolute top-[2%] left-[-2%] w-24 md:w-32 opacity-90 pointer-events-none z-0" style={{ imageRendering: 'pixelated' }} />
-            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds3.png" alt="Cloud" className="absolute top-[8%] right-[2%] w-20 md:w-28 opacity-85 pointer-events-none z-0" style={{ imageRendering: 'pixelated' }} />
+            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds2.PNG?updatedAt=1789282180439" alt="Cloud" className="absolute top-[2%] left-[-2%] w-24 md:w-32 opacity-90 pointer-events-none z-0" style={{ imageRendering: 'pixelated' }} />
+            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds3.PNG?updatedAt=1789282180491" alt="Cloud" className="absolute top-[8%] right-[2%] w-20 md:w-28 opacity-85 pointer-events-none z-0" style={{ imageRendering: 'pixelated' }} />
 
             <div className="w-full max-w-lg pt-12 pb-16 px-4 z-20 flex flex-col items-center">
 
@@ -313,11 +313,11 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                     </h1>
 
                     {/* Coins */}
-                    <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/coins1.png" alt="Coin" className="absolute top-[30%] left-[10%] w-6 sm:w-8" style={{ imageRendering: 'pixelated' }} animate={{ y: [-4, 4, -4] }} transition={{ duration: 2, repeat: Infinity }} />
-                    <img src={floating2} alt="Platform" className="absolute top-[40%] left-[8%] w-10 drop-shadow" style={{ imageRendering: 'pixelated' }} />
+                    <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Coins.PNG?updatedAt=1789282181286" alt="Coin" className="absolute top-[30%] left-[10%] w-8 sm:w-10" style={{ imageRendering: 'pixelated' }} animate={{ y: [-4, 4, -4] }} transition={{ duration: 2, repeat: Infinity }} />
+                    <img src={floating3} alt="Platform" className="absolute top-[40%] left-[8%] w-10 drop-shadow" style={{ imageRendering: 'pixelated' }} />
 
-                    <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/coins1.png" alt="Coin" className="absolute top-[30%] right-[10%] w-6 sm:w-8" style={{ imageRendering: 'pixelated' }} animate={{ y: [-4, 4, -4] }} transition={{ duration: 2, repeat: Infinity, delay: 0.5 }} />
-                    <img src={floating2} alt="Platform" className="absolute top-[40%] right-[8%] w-10 drop-shadow" style={{ imageRendering: 'pixelated' }} />
+                    <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Coins.PNG?updatedAt=1789282181286" alt="Coin" className="absolute top-[30%] right-[10%] w-8 sm:w-10" style={{ imageRendering: 'pixelated' }} animate={{ y: [-4, 4, -4] }} transition={{ duration: 2, repeat: Infinity, delay: 0.5 }} />
+                    <img src={floating3} alt="Platform" className="absolute top-[40%] right-[8%] w-10 drop-shadow" style={{ imageRendering: 'pixelated' }} />
 
                     {/* Date Graphic */}
                     <div className="relative w-full flex justify-center mt-4">
@@ -352,7 +352,7 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
             {/* Groom (Left) & Letter (Right) */}
             <motion.div variants={sectionVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full flex flex-row items-start justify-between relative z-10 px-2 sm:px-6">
                 {/* Character */}
-                <div className="flex flex-col items-center w-[80px] mt-4 ml-2">
+                <div className="flex flex-col items-center w-[100px] mt-4 ml-2">
                     <span className="text-white font-pixel text-[10px] font-bold mb-2 drop-shadow-md">SEPRIANOR</span>
                     <div 
                         className="relative flex flex-col items-center cursor-pointer hover:scale-110 transition-transform active:scale-95 z-20"
@@ -361,8 +361,8 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                             title: "SEPRIANOR"
                         })}
                     >
-                        <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/groom_characters.png?updatedAt=1787985113980" alt="Groom" className="w-[70px] relative z-10 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
-                        <img src={floating2} alt="Platform" className="w-[72px] -mt-3 z-0 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
+                        <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Groom_character.png" alt="Groom" className="w-[75px] h-auto relative z-10 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
+                        <img src={floating3} alt="Platform" className="w-[72px] -mt-3 z-0 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
                     </div>
                 </div>
                 {/* Letter */}
@@ -378,8 +378,8 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
 
             {/* Clouds between Groom and Bride */}
             <div className="absolute top-[35%] w-[120%] flex justify-between items-center z-0 pointer-events-none left-[-10%] right-[-10%]">
-                <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds2.png" alt="Cloud" className="w-48 opacity-80 -ml-12" style={{ imageRendering: 'pixelated' }} />
-                <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds3.png" alt="Cloud" className="w-48 opacity-90 -mr-12 mt-20" style={{ imageRendering: 'pixelated' }} />
+                <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds2.PNG?updatedAt=1789282180439" alt="Cloud" className="w-48 opacity-80 -ml-12" style={{ imageRendering: 'pixelated' }} />
+                <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds3.PNG?updatedAt=1789282180491" alt="Cloud" className="w-48 opacity-90 -mr-12 mt-20" style={{ imageRendering: 'pixelated' }} />
             </div>
 
             {/* Bride (Right) & Letter (Left) */}
@@ -403,16 +403,16 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                             title: "FIA"
                         })}
                     >
-                        <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/bride_characters.png?updatedAt=1787985113617" alt="Bride" className="w-[100px] relative z-10 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
-                        <img src={floating2} alt="Platform" className="w-[85px] -mt-5 z-0 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
+                        <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Bride_character.png" alt="Bride" className="w-[100px] h-auto relative z-10 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
+                        <img src={floating3} alt="Platform" className="w-[85px] -mt-5 z-0 drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
                     </div>
                 </div>
             </motion.div>
 
             {/* Clouds below Bride */}
             <div className="absolute bottom-[-5%] w-[120%] flex justify-between items-center z-0 pointer-events-none left-[-10%] right-[-10%]">
-                <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds2.png" alt="Cloud" className="w-56 opacity-80 -ml-16" style={{ imageRendering: 'pixelated' }} />
-                <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds3.png" alt="Cloud" className="w-56 opacity-90 -mr-16 mt-12" style={{ imageRendering: 'pixelated' }} />
+                <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds2.PNG?updatedAt=1789282180439" alt="Cloud" className="w-56 opacity-80 -ml-16" style={{ imageRendering: 'pixelated' }} />
+                <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds3.PNG?updatedAt=1789282180491" alt="Cloud" className="w-56 opacity-90 -mr-16 mt-12" style={{ imageRendering: 'pixelated' }} />
             </div>
         </div>
 
@@ -468,11 +468,11 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                     {/* Background Clouds for this section */}
                     <div className="absolute top-[10%] w-full h-full flex flex-col justify-between items-center z-0 pointer-events-none">
                         {/* Cloud left behind maps */}
-                        <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds2.png" alt="Cloud" className="absolute left-[-20%] top-[10%] w-56 opacity-80" style={{ imageRendering: 'pixelated' }} />
+                        <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds2.PNG?updatedAt=1789282180439" alt="Cloud" className="absolute left-[-20%] top-[10%] w-56 opacity-80" style={{ imageRendering: 'pixelated' }} />
                         {/* Cloud right behind schedule */}
-                        <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds3.png" alt="Cloud" className="absolute right-[-30%] top-[80%] w-64 opacity-50" style={{ imageRendering: 'pixelated' }} />
+                        <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds3.PNG?updatedAt=1789282180491" alt="Cloud" className="absolute right-[-30%] top-[80%] w-64 opacity-50" style={{ imageRendering: 'pixelated' }} />
                         {/* Cloud bottom left */}
-                        <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds2.png" alt="Cloud" className="absolute left-[-15%] bottom-[-5%] w-48 opacity-80" style={{ imageRendering: 'pixelated' }} />
+                        <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds2.PNG?updatedAt=1789282180439" alt="Cloud" className="absolute left-[-15%] bottom-[-5%] w-48 opacity-80" style={{ imageRendering: 'pixelated' }} />
                     </div>
 
                     <h2 className="text-white text-xl sm:text-2xl font-pixel uppercase tracking-widest font-bold text-center drop-shadow-md mb-6 z-10">TIME AND<br />PLACE OF<br />EVENT</h2>
@@ -578,8 +578,8 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
                 <motion.div variants={sectionVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full flex flex-col items-center mb-12 relative">
                     
                     {/* Clouds */}
-                    <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds2.png" alt="Cloud" className="absolute left-[-25%] top-[15%] w-44 opacity-80 pointer-events-none z-0" style={{ imageRendering: 'pixelated' }} />
-                    <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds3.png" alt="Cloud" className="absolute right-[-20%] bottom-[10%] w-40 opacity-80 pointer-events-none z-0" style={{ imageRendering: 'pixelated' }} />
+                    <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds2.PNG?updatedAt=1789282180439" alt="Cloud" className="absolute left-[-25%] top-[15%] w-44 opacity-80 pointer-events-none z-0" style={{ imageRendering: 'pixelated' }} />
+                    <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds3.PNG?updatedAt=1789282180491" alt="Cloud" className="absolute right-[-20%] bottom-[10%] w-40 opacity-80 pointer-events-none z-0" style={{ imageRendering: 'pixelated' }} />
 
                     <h2 className="text-white text-xl sm:text-2xl font-pixel uppercase tracking-widest font-bold drop-shadow-md mb-3 text-center z-10">GIFT<br />RECOMMENDATIONS</h2>
                     
@@ -863,9 +863,8 @@ export function BigDayCard({ onBack }: BigDayCardProps) {
 
             {/* Strict Pixel Grid Bottom Stage - Relative to flow at the end */}
             <div className="relative w-full h-[300px] pointer-events-none z-10 mt-auto flex-shrink-0">
-                <div className="absolute bottom-[128px] w-full h-[180px] bg-repeat-x bg-bottom z-10" style={{ backgroundImage: 'url("https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/background.png")', backgroundSize: 'auto 100%', imageRendering: 'pixelated' }} />
-                <div className="absolute bottom-0 w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundDirt}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
-                <div className="absolute bottom-[64px] w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundGrass}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
+                <div className="absolute bottom-0 w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundBottom}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
+                <div className="absolute bottom-[64px] w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundTop}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
 
                 {/* Couple Standing on Ground */}
                 <div className="absolute bottom-[128px] left-1/2 -translate-x-1/2 w-full max-w-[500px] h-[172px] z-30">

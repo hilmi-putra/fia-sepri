@@ -7,8 +7,8 @@ interface ReadyScreenProps {
 }
 
 export function ReadyScreen({ onReady }: ReadyScreenProps) {
-  const groundGrass = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/ground1.png";
-  const groundDirt = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/ground3.png";
+  const groundTop = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Ground1.png";
+  const groundBottom = "https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Ground2.png";
 
   return (
     <motion.div 
@@ -20,9 +20,9 @@ export function ReadyScreen({ onReady }: ReadyScreenProps) {
     >
       
       {/* Sky & Background Elements */}
-      <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds2.png" alt="Cloud" className="absolute top-[8%] left-[-2%] w-32 md:w-48 opacity-90 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} animate={{ x: [0, 15, 0] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} />
-      <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds3.png" alt="Cloud" className="absolute top-[25%] right-[2%] w-24 md:w-32 opacity-85 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} animate={{ x: [0, -10, 0] }} transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }} />
-      <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/clouds1.png" alt="Cloud" className="absolute top-[60%] left-[30%] w-40 md:w-56 opacity-80 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} animate={{ x: [0, 20, 0] }} transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds2.PNG?updatedAt=1789282180439" alt="Cloud" className="absolute top-[8%] left-[-2%] w-32 md:w-48 opacity-90 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} animate={{ x: [0, 15, 0] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds3.PNG?updatedAt=1789282180491" alt="Cloud" className="absolute top-[25%] right-[2%] w-24 md:w-32 opacity-85 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} animate={{ x: [0, -10, 0] }} transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Clouds1.PNG?updatedAt=1789282179898" alt="Cloud" className="absolute top-[60%] left-[30%] w-40 md:w-56 opacity-80 pointer-events-none z-10" style={{ imageRendering: 'pixelated' }} animate={{ x: [0, 20, 0] }} transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }} />
 
       {/* Kiki top right */}
       <motion.img 
@@ -60,7 +60,7 @@ export function ReadyScreen({ onReady }: ReadyScreenProps) {
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
             className="outline-none"
           >
-            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/buttonstart.png" alt="Start" className="w-[100px] sm:w-[120px] h-auto drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
+            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Buttonstart.PNG?updatedAt=1789282181809" alt="Start" className="w-[100px] sm:w-[120px] h-auto drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
           </motion.button>
           <motion.button 
             onClick={onReady} 
@@ -70,7 +70,7 @@ export function ReadyScreen({ onReady }: ReadyScreenProps) {
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: 0.2 }}
             className="outline-none"
           >
-            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/buttongo.png" alt="Go" className="w-[110px] sm:w-[130px] h-auto drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
+            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Buttongo.PNG?updatedAt=1789282181990" alt="Go" className="w-[110px] sm:w-[130px] h-auto drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
           </motion.button>
         </motion.div>
       </div>
@@ -83,10 +83,10 @@ export function ReadyScreen({ onReady }: ReadyScreenProps) {
         className="absolute top-[40%] md:top-[45%] left-[8%] sm:left-[15%] flex flex-col items-center z-30 pointer-events-none"
       >
         <div className="flex gap-3 sm:gap-4 mb-2">
-          <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/coins1.png" alt="Coin" className="w-6 sm:w-8 h-auto" style={{ imageRendering: 'pixelated' }} animate={{ y: [-4, 4, -4] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }} />
-          <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/coins1.png" alt="Coin" className="w-6 sm:w-8 h-auto" style={{ imageRendering: 'pixelated' }} animate={{ y: [-4, 4, -4] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }} />
+          <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Coins.PNG?updatedAt=1789282181286" alt="Coin" className="w-8 sm:w-10 h-auto" style={{ imageRendering: 'pixelated' }} animate={{ y: [-4, 4, -4] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }} />
+          <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Coins.PNG?updatedAt=1789282181286" alt="Coin" className="w-8 sm:w-10 h-auto" style={{ imageRendering: 'pixelated' }} animate={{ y: [-4, 4, -4] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }} />
         </div>
-        <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/floating1.png" alt="Platform" className="w-[120px] sm:w-[150px] h-auto" style={{ imageRendering: 'pixelated' }} animate={{ y: [-2, 2, -2] }} transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }} />
+        <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Floating1.PNG?updatedAt=1789282181276" alt="Platform" className="w-[120px] sm:w-[150px] h-auto" style={{ imageRendering: 'pixelated' }} animate={{ y: [-2, 2, -2] }} transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }} />
       </motion.div>
 
       {/* Right Floating Platform */}
@@ -96,21 +96,18 @@ export function ReadyScreen({ onReady }: ReadyScreenProps) {
         transition={{ duration: 0.8, delay: 0.4 }}
         className="absolute top-[48%] md:top-[52%] right-[8%] sm:right-[15%] flex flex-col items-center z-30 pointer-events-none"
       >
-        <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/hearts.png" alt="Heart" className="w-6 sm:w-8 h-auto mb-3" style={{ imageRendering: 'pixelated' }} animate={{ y: [-5, 5, -5] }} transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }} />
-        <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/floating2.png" alt="Platform" className="w-[100px] sm:w-[120px] h-auto" style={{ imageRendering: 'pixelated' }} animate={{ y: [2, -2, 2] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} />
+        <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Love.PNG?updatedAt=1789282180985" alt="Heart" className="w-8 sm:w-10 h-auto mb-3" style={{ imageRendering: 'pixelated' }} animate={{ y: [-5, 5, -5] }} transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }} />
+        <motion.img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Floating3.PNG?updatedAt=1789282182073" alt="Platform" className="w-[100px] sm:w-[120px] h-auto" style={{ imageRendering: 'pixelated' }} animate={{ y: [2, -2, 2] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} />
       </motion.div>
 
       {/* Strict Pixel Grid Bottom Stage */}
       <div className="absolute bottom-[32px] w-full h-[300px] pointer-events-none">
         
-        {/* Mountains Background */}
-        <div className="absolute bottom-[128px] w-full h-[180px] bg-repeat-x bg-bottom z-10" style={{ backgroundImage: 'url("https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/background.png")', backgroundSize: 'auto 100%', imageRendering: 'pixelated' }} />
-
         {/* Level 0: Continuous Dirt */}
-        <div className="absolute bottom-0 w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundDirt}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
+        <div className="absolute bottom-0 w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundBottom}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
         
         {/* Level 1: Continuous Grass */}
-        <div className="absolute bottom-[64px] w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundGrass}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
+        <div className="absolute bottom-[64px] w-full h-[64px] bg-repeat-x bg-bottom z-20" style={{ backgroundImage: `url('${groundTop}')`, backgroundSize: '64px 64px', imageRendering: 'pixelated' }} />
 
         {/* Stage Content Container */}
         <div className="absolute bottom-[128px] left-1/2 -translate-x-1/2 w-full max-w-[500px] h-[172px] z-30">
@@ -134,7 +131,7 @@ export function ReadyScreen({ onReady }: ReadyScreenProps) {
               <div className="absolute -bottom-[6px] right-[30%] w-3 h-3 bg-white border-b-[3px] border-r-[3px] border-black rotate-45" />
             </motion.div>
 
-            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Pixel%20Dash/groom&bride2.png" alt="Groom and Bride" className="w-[100px] sm:w-[120px] h-auto drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
+            <img src="https://ik.imagekit.io/udvvrj1o2/fia&sepri/Cover/Groom&bride2.PNG?updatedAt=1789282182064" alt="Groom and Bride" className="w-[100px] sm:w-[120px] h-auto drop-shadow-md" style={{ imageRendering: 'pixelated' }} />
           </div>
 
           {/* Characters Right (Howl's Moving Castle) */}
